@@ -50,4 +50,20 @@ public class Node implements Comparable<Node>{
 			return 0;
 		return -1;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o.getClass() != Node.class){
+			return false;
+		}
+		Node otherNode = (Node)o;
+		if(otherNode.id == this.id)
+			return true;
+		return false;
+	}
+	
+	@Override
+	public String toString(){
+		return "Node: "+id;
+	}
 }

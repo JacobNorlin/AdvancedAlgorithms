@@ -29,10 +29,22 @@ public class Edge implements Comparable<Edge> {
 	@Override
 	public int compareTo(Edge otherEdge){
 		
-		if (otherEdge.u.equals(this.u) && otherEdge.v.equals(this.v) || otherEdge.v.equals(this.u) && otherEdge.u.equals(this.v) ){
-			return 0;
+		if ((otherEdge.u.equals(this.u) && otherEdge.v.equals(this.v)) || (otherEdge.v.equals(this.u) && otherEdge.u.equals(this.v)) ){
+			return 1;
 		}
 		return -1;
+		
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o.getClass() != Edge.class)
+			return false;
+		Edge otherEdge = (Edge)o;
+		if ((otherEdge.u.equals(this.u) && otherEdge.v.equals(this.v)) || (otherEdge.v.equals(this.u) && otherEdge.u.equals(this.v)) ){
+			return true;
+		}
+		return false;
 		
 	}
 	

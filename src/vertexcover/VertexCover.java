@@ -14,9 +14,11 @@ public class VertexCover {
 			vc.add(e.getU());
 			vc.add(e.getV());
 			
+//			System.out.println(e);
+			
 			//remove adjacent edges
-			graph.removeNode(e.getU());
-			graph.removeNode(e.getV());
+			graph.removeNode(graph.getNodes().get(graph.getNodes().indexOf(e.getU())));
+			graph.removeNode(graph.getNodes().get(graph.getNodes().indexOf(e.getV())));
 		}
 		
 		return vc;
