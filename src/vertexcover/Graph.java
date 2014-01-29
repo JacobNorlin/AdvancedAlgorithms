@@ -34,6 +34,7 @@ public class Graph {
 	}
 
 	public void addEdge(Edge e){
+		//this is dumb i dont like this
 		nodes.get(nodes.indexOf(e.getU())).addEdge(e);
 		nodes.get(nodes.indexOf(e.getV())).addEdge(e);
 		edges.add(e);
