@@ -6,7 +6,8 @@ import java.util.ArrayList;
 public class Test {
 	
 	public static void main(String args[]) throws IOException{
-		Graph g = GraphFactory.buildGraphFromFile("C:\\Users\\jacobna\\workspace\\Advanced Algorithms\\frb30-15-mis\\frb30-15-1.mis");
+//		Graph g = GraphFactory.buildGraphFromFile("C:\\Users\\jacobna\\workspace\\Advanced Algorithms\\frb30-15-mis\\frb30-15-1.mis");
+		Graph g = GraphFactory.buildRandomGraph(100, 250);
 //		System.out.println(g);
 		
 		VertexCover vc = new VertexCover();
@@ -25,6 +26,9 @@ public class Test {
 //			System.out.println(e);
 //		
 		System.out.println(s.size());
+		
+		
+		
 //		
 		
 		

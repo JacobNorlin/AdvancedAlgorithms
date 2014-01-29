@@ -16,22 +16,19 @@ public class GraphFactory {
 		
 		for(int i = 0; i < nodes; i++){
 			Node n = new Node(i);
-			nodeList.add(n);
+			newGraph.addNode(n);
 		}
 		
 		while(edges != 0){
-			Node u = nodeList.get(randInt(0,nodes-1));
-			Node v = nodeList.get(randInt(0,nodes-1));
+			Node u = newGraph.getNodes().get(randInt(0,nodes-1));
+			Node v = newGraph.getNodes().get(randInt(0,nodes-1));
 			
 			if(u.equals(v)){
 				continue;
 			}
 			
 			Edge e = new Edge(u,v);
-			u.addEdge(e);
-			v.addEdge(e);
-			newGraph.addNode(v);
-			newGraph.addNode(u);
+			newGraph.addEdge(e);
 			edges--;
 			
 			
