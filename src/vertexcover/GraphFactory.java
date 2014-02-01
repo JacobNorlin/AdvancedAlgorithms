@@ -19,18 +19,16 @@ public class GraphFactory {
 			newGraph.addNode(n);
 		}
 
-		while (edges != 0) {
+		while (edges > 0) {
 			int i = randInt(r, nodes - 1);
 			Node u = newGraph.getNodes().get(i);
 			Node v = newGraph.getNodes().get(randInt(r, nodes - 1, i));
 
-			if (u.equals(v)) {
-				continue;
-			}
-
 			Edge e = new Edge(u, v);
-			newGraph.addEdge(e);
-			edges--;
+			if (!newGraph.getEdges().contains(e)) {
+				newGraph.addEdge(e);
+				edges--;
+			}
 
 		}
 
@@ -47,7 +45,7 @@ public class GraphFactory {
 			newGraph.addNode(n);
 		}
 
-		int randVal = new Double(skip*100).intValue() - 1;
+		int randVal = new Double(skip * 100).intValue() - 1;
 
 		for (int i = 0; i < nodes; i++) {
 			for (int j = i; j < nodes; j++) {
@@ -75,7 +73,7 @@ public class GraphFactory {
 			newGraph.addNode(n);
 		}
 
-		int randVal = new Double(skip*100).intValue() - 1;
+		int randVal = new Double(skip * 100).intValue() - 1;
 
 		for (int i = 0; i < nodes; i++) {
 			for (int j = i; j < nodes; j++) {
@@ -102,7 +100,7 @@ public class GraphFactory {
 		// nextInt is normally exclusive of the top value,
 		// so add 1 to make it inclusive
 		int randomNum;
-		while ((randomNum = r.nextInt(max + 1)) != exclude)
+		while ((randomNum = r.nextInt(max + 1)) == exclude)
 			;
 
 		return randomNum;

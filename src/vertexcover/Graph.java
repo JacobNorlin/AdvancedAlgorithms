@@ -31,9 +31,8 @@ public class Graph {
 	}
 
 	public void addEdge(Edge e) {
-		// this is dumb i dont like this
-		nodes.get(nodes.indexOf(e.getU())).addEdge(e);
-		nodes.get(nodes.indexOf(e.getV())).addEdge(e);
+		e.getU().addEdge(e);
+		e.getV().addEdge(e);
 		edges.add(e);
 	}
 
@@ -64,18 +63,13 @@ public class Graph {
 		// System.out.println(n);
 		// System.out.println(n.getEdges());
 		for (Edge e : n.getEdges()) {
-			int indexOfEdge = edges.indexOf(e);
-			if (indexOfEdge >= 0) {
-				edges.remove(indexOfEdge);
-				// System.out.print(e+" ");
+			edges.remove(e);
 			}
-
-		}
-		nodes.remove(nodes.indexOf(n));
+		nodes.remove(n);
 	}
 
 	public Edge getRandomEdge() {
-		return edges.get(GraphFactory.randInt(new Random(), edges.size() - 1));
+		return edges.get(new Random().nextInt(edges.size()));
 	}
 
 	public int getMinCover() {
@@ -84,6 +78,18 @@ public class Graph {
 
 	public void setMinCover(int minCover) {
 		this.minCover = minCover;
+	}
+	
+	public double ratio() {
+		return (this.edges.size()+0d)/this.nodes.size();
+	}
+	
+	public Graph copy() {
+		Graph g = new Graph();
+		g.minCover = this.minCover;
+		g.nodes = new ArrayList<Node>(this.nodes);
+		g.edges = new ArrayList<Edge>(this.edges);
+		return g;
 	}
 
 }

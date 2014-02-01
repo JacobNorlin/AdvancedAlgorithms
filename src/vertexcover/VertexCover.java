@@ -3,26 +3,42 @@ package vertexcover;
 import java.util.ArrayList;
 
 public class VertexCover {
-	
-	public ArrayList<Node> greedy(Graph graph){
+
+	ArrayList<Node> vcGreedy;
+	ArrayList<Node> vcOpt;
+	Graph g;
+
+	public VertexCover(Graph graph) {
+		this.g = graph;
+		this.vcGreedy = new ArrayList<Node>();
+		this.vcOpt = new ArrayList<Node>();
+	}
+
+	public ArrayList<Node> greedy() {
+		Graph graph = this.g.copy();
+		this.vcGreedy = new ArrayList<Node>();
 		
-		ArrayList<Node> vc = new ArrayList<Node>();
-		
-		while(graph.getEdges().size() > 0){
-			//Choose some random edge
+		while (graph.getEdges().size() > 0) {
+			// Choose some random edge
 			Edge e = graph.getRandomEdge();
-			vc.add(e.getU());
-			vc.add(e.getV());
-			
-//			System.out.println(e);
-			
-			//remove adjacent edges
-			graph.removeNode(graph.getNodes().get(graph.getNodes().indexOf(e.getU())));
-			graph.removeNode(graph.getNodes().get(graph.getNodes().indexOf(e.getV())));
+			this.vcGreedy.add(e.getU());
+			this.vcGreedy.add(e.getV());
+
+			// remove adjacent edges
+			graph.removeNode(e.getU());
+			graph.removeNode(e.getV());
 		}
-		
-		return vc;
-		
+		return this.vcGreedy;
+	}
+
+	public ArrayList<Node> dynamicProgramming() {
+		Graph graph = this.g.copy();
+		this.vcOpt = new ArrayList<Node>();
+		return this.vcOpt;
+	}
+
+	public double ratio() {
+		return (this.vcGreedy.size() + 0d) / this.vcOpt.size();
 	}
 
 }
