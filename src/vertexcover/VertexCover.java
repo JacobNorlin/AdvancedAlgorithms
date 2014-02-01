@@ -1,6 +1,7 @@
 package vertexcover;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VertexCover {
 
@@ -17,7 +18,7 @@ public class VertexCover {
 	public ArrayList<Node> greedy() {
 		Graph graph = this.g.copy();
 		this.vcGreedy = new ArrayList<Node>();
-		
+
 		while (graph.getEdges().size() > 0) {
 			// Choose some random edge
 			Edge e = graph.getRandomEdge();
@@ -29,12 +30,6 @@ public class VertexCover {
 			graph.removeNode(e.getV());
 		}
 		return this.vcGreedy;
-	}
-
-	public ArrayList<Node> dynamicProgramming() {
-		Graph graph = this.g.copy();
-		this.vcOpt = new ArrayList<Node>();
-		return this.vcOpt;
 	}
 
 	public double ratio() {
