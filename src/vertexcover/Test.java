@@ -7,30 +7,30 @@ public class Test {
 	public static void main(String args[]) throws Exception {
 
 		System.out.println("Random!!!!!");
-		for (int n = 100, i = 1; n < 800; n += 50) {
+		for (int n = 100, i = 1; n <= 500; n += 50) {
 			for (double j = 1; j <= 4; j += 0.5, i++) {
 				print(i,
-						GraphFactory.buildRandomGraph(150,
+						GraphFactory.buildRandomGraph(n,
 								new Double(n * j).intValue()));
 			}
 		}
 
 		System.out.println("Complete!!!!!");
-		for (int n = 100, i = 1; n < 800; n += 50) {
+		for (int n = 100, i = 1; n <= 500; n += 50) {
 			for (double j = 0.00; j <= 0.05; j += 0.01, i++) {
 				print(i, GraphFactory.buildNearCompleteGraph(n, j));
 			}
 		}
 
 		System.out.println("Star!!!!!");
-		for (int n = 100, i = 1; n < 800; n += 50) {
+		for (int n = 100, i = 1; n <= 500; n += 50) {
 			for (double j = 0.00; j <= 0.05; j += 0.01, i++) {
 				print(i, GraphFactory.buildStarGraph(n, j));
 			}
 		}
 
 		System.out.println("Sparse!!!!!");
-		for (int n = 100, i = 1; n < 800; n += 50) {
+		for (int n = 100, i = 1; n <= 500; n += 50) {
 			for (double j = 0.00; j <= 0.05; j += 0.01, i++) {
 				print(i, GraphFactory.buildNearSparseGraph(n, j));
 			}
