@@ -15,13 +15,17 @@ public class Test {
 			}
 		}
 
+		System.out.println();
+		System.out.println();
 		System.out.println("Complete!!!!!");
 		for (int n = 100, i = 1; n <= 500; n += 50) {
 			for (double j = 0.00; j <= 0.05; j += 0.01, i++) {
 				print(i, GraphFactory.buildNearCompleteGraph(n, j));
 			}
 		}
-
+		
+		System.out.println();
+		System.out.println();
 		System.out.println("Star!!!!!");
 		for (int n = 100, i = 1; n <= 500; n += 50) {
 			for (double j = 0.00; j <= 0.05; j += 0.01, i++) {
@@ -29,6 +33,8 @@ public class Test {
 			}
 		}
 
+		System.out.println();
+		System.out.println();
 		System.out.println("Sparse!!!!!");
 		for (int n = 100, i = 1; n <= 500; n += 50) {
 			for (double j = 0.00; j <= 0.05; j += 0.01, i++) {
