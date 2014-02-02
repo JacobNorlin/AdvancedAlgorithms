@@ -9,13 +9,18 @@ import java.util.Random;
 
 public class GraphFactory {
 
+	private static final int multiply = 1000000;
+
 	public static Graph buildRandomGraph(int nodes, int edges) throws Exception {
 
-		int maxEdges = nodes * (nodes - 1) / 2 ;
-		if ( maxEdges < edges ) {
-			throw new Exception(String.format("Well obviously I cannot create an undirected graph with %d nodes and %d edges since the maximum of edges is %d. Moron.",nodes,edges,maxEdges));
+		int maxEdges = nodes * (nodes - 1) / 2;
+		if (maxEdges < edges) {
+			throw new Exception(
+					String.format(
+							"Well obviously I cannot create an undirected graph with %d nodes and %d edges since the maximum of edges is %d. Moron.",
+							nodes, edges, maxEdges));
 		}
-		
+
 		Graph newGraph = new Graph();
 		Random r = new Random();
 
@@ -37,6 +42,45 @@ public class GraphFactory {
 
 		}
 
+		// System.err.println("Graph created");
+		return newGraph;
+	}
+
+	public static Graph buildStarGraph(int nodes, double add) throws Exception {
+
+		Graph newGraph = new Graph();
+		Random r = new Random();
+		int edges = nodes - 1;
+
+		for (int i = 0; i < nodes; i++) {
+			Node n = new Node(i);
+			newGraph.addNode(n);
+		}
+
+		Node center = newGraph.getNodes().get(0);
+
+		while (edges > 0) {
+			Node v = newGraph.getNodes().get(edges);
+
+			Edge e = new Edge(center, v);
+			newGraph.addEdge(e);
+			edges--;
+		}
+		int randVal = new Double(add * GraphFactory.multiply).intValue() - 1;
+		for (int i = 1; i < nodes; i++) {
+			for (int j = i; j < nodes; j++) {
+				if (i == j || randVal < r.nextInt(GraphFactory.multiply)) {
+					continue;
+				}
+				Node u = newGraph.getNodes().get(i);
+				Node v = newGraph.getNodes().get(j);
+
+				Edge e = new Edge(u, v);
+				newGraph.addEdge(e);
+			}
+		}
+
+		// System.err.println("Graph created");
 		return newGraph;
 	}
 
@@ -50,11 +94,11 @@ public class GraphFactory {
 			newGraph.addNode(n);
 		}
 
-		int randVal = new Double(skip * 100).intValue() - 1;
+		int randVal = new Double(skip * GraphFactory.multiply).intValue() - 1;
 
 		for (int i = 0; i < nodes; i++) {
 			for (int j = i; j < nodes; j++) {
-				if (i == j || r.nextInt(100) < randVal) {
+				if (i == j || r.nextInt(GraphFactory.multiply) < randVal) {
 					continue;
 				}
 				Node u = newGraph.getNodes().get(i);
@@ -65,6 +109,7 @@ public class GraphFactory {
 			}
 		}
 
+		// System.err.println("Graph created");
 		return newGraph;
 	}
 
@@ -78,11 +123,11 @@ public class GraphFactory {
 			newGraph.addNode(n);
 		}
 
-		int randVal = new Double(skip * 100).intValue() - 1;
+		int randVal = new Double(skip * GraphFactory.multiply).intValue() - 1;
 
 		for (int i = 0; i < nodes; i++) {
 			for (int j = i; j < nodes; j++) {
-				if (i == j || r.nextInt(100) > randVal) {
+				if (i == j || r.nextInt(GraphFactory.multiply) > randVal) {
 					continue;
 				}
 				Node u = newGraph.getNodes().get(i);
@@ -93,6 +138,7 @@ public class GraphFactory {
 			}
 		}
 
+		// System.err.println("Graph created");
 		return newGraph;
 	}
 

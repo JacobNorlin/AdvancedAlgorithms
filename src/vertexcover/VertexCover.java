@@ -20,6 +20,7 @@ public class VertexCover {
 	}
 
 	public List<Node> greedy() {
+		// System.err.println("Started Greedy");
 		float start = System.currentTimeMillis();
 		Graph graph = this.g.copy();
 		this.vcGreedy = new ArrayList<Node>();
@@ -35,18 +36,23 @@ public class VertexCover {
 			graph.removeNode(e.getV());
 		}
 		this.greedyTime = System.currentTimeMillis() - start;
+		// System.err.println("Finished Greedy");
 		return this.vcGreedy;
 	}
 
 	public double ratio() {
+		if (this.vcOpt.size() == 0) {
+			return 0;
+		}
 		return (this.vcGreedy.size() + 0d) / this.vcOpt.size();
 	}
 
 	public List<Node> ilp() {
+		// System.err.println("Started ILP");
 		float start = System.currentTimeMillis();
 		this.vcOpt = new ArrayList<Node>();
-		
-		SolverFactory factory = new SolverFactoryLpSolve();
+
+		SolverFactory factory = new SolverFactoryGurobi();
 		factory.setParameter(Solver.VERBOSE, 0);
 
 		Problem problem = new Problem();
@@ -71,22 +77,27 @@ public class VertexCover {
 		}
 
 		Solver solver = factory.get();
+		solver.setParameter(g.getNodes().get(0), new Integer(1));
 		Result result = solver.solve(problem);
 		for (Node n : g.getNodes()) {
-			if(result.get(n).intValue()==1) {
+			if (result.get(n).intValue() == 1) {
 				this.vcOpt.add(n);
 			}
 		}
-		
-		this.greedyTime = System.currentTimeMillis() - start;
+
+		this.optTime = System.currentTimeMillis() - start;
+		// System.err.println("Finished ILP");
+		result = null;
+		solver = null;
+
 		return this.vcOpt;
 	}
-	
+
 	public float greedyTime() {
-		return this.greedyTime;
+		return this.greedyTime * 1000;
 	}
 
 	public float optTime() {
-		return this.optTime;
+		return this.optTime * 1000;
 	}
 }
