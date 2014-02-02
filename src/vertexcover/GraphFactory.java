@@ -9,8 +9,13 @@ import java.util.Random;
 
 public class GraphFactory {
 
-	public static Graph buildRandomGraph(int nodes, int edges) {
+	public static Graph buildRandomGraph(int nodes, int edges) throws Exception {
 
+		int maxEdges = nodes * (nodes - 1) / 2 ;
+		if ( maxEdges < edges ) {
+			throw new Exception(String.format("Well obviously I cannot create an undirected graph with %d nodes and %d edges since the maximum of edges is %d. Moron.",nodes,edges,maxEdges));
+		}
+		
 		Graph newGraph = new Graph();
 		Random r = new Random();
 
