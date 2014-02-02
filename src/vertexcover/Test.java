@@ -4,47 +4,71 @@ import java.util.List;
 
 public class Test {
 
-	public static void main(String args[]) throws Exception {
+	class TestRandom implements Runnable {
 
-		System.out.println("Random!!!!!");
-		for (int n = 100, i = 1; n <= 500; n += 50) {
-			for (double j = 1; j <= 4; j += 0.5, i++) {
-				print(i,
-						GraphFactory.buildRandomGraph(n,
-								new Double(n * j).intValue()));
+		public void run() {
+			for (int n = 100, i = 1; n <= 500; n += 100) {
+				for (double j = 0.5; j < 3; j += 0.5, i++) {
+					try {
+						Test.print(
+								"Random",
+								i,
+								GraphFactory.buildRandomGraph(n, new Double(n
+										* j).intValue()));
+					} catch (Exception e) {
+					}
+				}
 			}
 		}
-
-		System.out.println();
-		System.out.println();
-		System.out.println("Complete!!!!!");
-		for (int n = 100, i = 1; n <= 500; n += 50) {
-			for (double j = 0.00; j <= 0.05; j += 0.01, i++) {
-				print(i, GraphFactory.buildNearCompleteGraph(n, j));
-			}
-		}
-		
-		System.out.println();
-		System.out.println();
-		System.out.println("Star!!!!!");
-		for (int n = 100, i = 1; n <= 500; n += 50) {
-			for (double j = 0.00; j <= 0.05; j += 0.01, i++) {
-				print(i, GraphFactory.buildStarGraph(n, j));
-			}
-		}
-
-		System.out.println();
-		System.out.println();
-		System.out.println("Sparse!!!!!");
-		for (int n = 100, i = 1; n <= 500; n += 50) {
-			for (double j = 0.00; j <= 0.05; j += 0.01, i++) {
-				print(i, GraphFactory.buildNearSparseGraph(n, j));
-			}
-		}
-
 	}
 
-	public static void print(int i, Graph g) {
+	class TestComplete implements Runnable {
+		public void run() {
+			for (int n = 100, i = 1; n <= 500; n += 100) {
+				for (double j = 0.00; j < 0.05; j += 0.01, i++) {
+					print("Complete", i,
+							GraphFactory.buildNearCompleteGraph(n, j));
+				}
+			}
+		}
+	}
+
+	class TestStar implements Runnable {
+		public void run() {
+			for (int n = 100, i = 1; n <= 500; n += 100) {
+				for (double j = 0.00; j < 0.05; j += 0.01, i++) {
+					try {
+						print("Star", i, GraphFactory.buildStarGraph(n, j));
+					} catch (Exception e) {
+					}
+				}
+			}
+		}
+	}
+
+	class TestSparse implements Runnable {
+		public void run() {
+			for (int n = 100, i = 1; n <= 500; n += 100) {
+				for (double j = 0.00; j < 0.05; j += 0.01, i++) {
+					print("Sparse", i, GraphFactory.buildNearSparseGraph(n, j));
+				}
+			}
+		}
+	}
+
+	public static void main(String args[]) throws Exception {
+		Test t = new Test();
+		new Thread(t.new TestComplete()).start();
+		new Thread(t.new TestSparse()).start();
+		new Thread(t.new TestStar()).start();
+		new Thread(t.new TestRandom()).start();
+	}
+
+	public static void print(String type, int i, Graph g) {
+		if (false) {
+			System.out.println(i);
+			return;
+		}
 		VertexCover vc = new VertexCover(g);
 		List<Node> greedy = vc.greedy();
 		List<Node> ilp = vc.ilp();
@@ -57,9 +81,9 @@ public class Test {
 		// String.format("%.2f",(g.getNodes().size()+0d)/g.getEdges().size()));
 		// System.out.println("Ratio s:	" + String.format("%.2f",vc.ratio()));
 		// System.out.println();
-		System.out.println(String.format("#%d;%d;%d;%f;%f", i, greedy.size(),
-				ilp.size(), (g.getNodes().size() + 0d) / g.getEdges().size(),
-				vc.ratio()));
+		System.out.println(String.format("%s;#%d;%d;%d;%f;%f", type, i,
+				greedy.size(), ilp.size(), (g.getNodes().size() + 0d)
+						/ g.getEdges().size(), vc.ratio()));
 	}
 
 }

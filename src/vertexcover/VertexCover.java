@@ -42,7 +42,7 @@ public class VertexCover {
 
 	public double ratio() {
 		if (this.vcOpt.size() == 0) {
-			return 0;
+			return Double.POSITIVE_INFINITY;
 		}
 		return (this.vcGreedy.size() + 0d) / this.vcOpt.size();
 	}
